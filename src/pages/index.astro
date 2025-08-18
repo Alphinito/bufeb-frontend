@@ -4,5 +4,9 @@ import CommonLayout from '../layouts/CommonLayout.astro';
 ---
 
 <CommonLayout title="Home">
-    <Welcome slot="body"/>
+	<Fragment slot="body">
+		<a href="/home/homePage">Ir a la página de inicio</a>
+		<button style="width: 100px;">aa</button>
+		<Welcome />
+	</Fragment>
 </CommonLayout>
