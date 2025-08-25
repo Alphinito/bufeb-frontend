@@ -1,5 +1,8 @@
 ---
-const { title = "Título por defecto" } = Astro.props;
+interface Props {
+    title?: string;
+}
+const { title = "Bufeb" } = Astro.props;
 ---
 <!doctype html>
 <html lang="es">
