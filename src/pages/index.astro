@@ -4,9 +4,16 @@ import CommonLayout from '../layouts/CommonLayout.astro';
 ---
 
 <CommonLayout title="Home">
+	<section slot="header">
+		<h1>Header. this will be a component</h1>
+	</section>
 	<Fragment slot="body">
-		<a href="/home/homePage">Ir a la página de inicio</a>
-		<button style="width: 100px;">aa</button>
-		<Welcome />
+		<section>First home page content (carousel or anything that shows the most important features)</section>
+		<section>Search section</section>
+		<section>Free services by inexperienced persons</section>
+		<Welcome /> // Example of component. Remove later
 	</Fragment>
+	<section slot="footer">
+		<p>Footer. this will be a component</p>
+	</section>
 </CommonLayout>
