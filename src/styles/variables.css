@@ -100,6 +100,15 @@
   --transition-slow: 350ms;
   --transition-timing: ease-in-out;
 
+  /* Animations */
+  --animation-speed-slow: 0.5px;    /* Movimiento lento */
+  --animation-speed-normal: 1px;    /* Movimiento estándar */
+  --animation-speed-fast: 2px;      /* Movimiento rápido */
+  --animation-speed-very-fast: 4px; /* Movimiento muy rápido */
+  --animation-carousel-gap: var(--spacing-md);
+  --animation-carousel-timing: linear;
+  --animation-carousel-duration: 100ms;
+
   /* Grid */
   --grid-gap: var(--spacing-md);
   --grid-columns: 12;

@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 
+type AnimationSpeed = 'slow' | 'normal' | 'fast' | 'very-fast';
+
 interface UseCarouselAnimationProps {
     direction: 'horizontal' | 'vertical';
     flow: 'normal' | 'reverse';
+    speed?: AnimationSpeed;
     isInfiniteLoop: boolean;
     isPaused: boolean;
     containerRef: preact.RefObject<HTMLDivElement>;
@@ -11,24 +14,23 @@ interface UseCarouselAnimationProps {
 
 interface CarouselState {
     position: number;
-    contentSize: number;
-    containerSize: number;
     isReversing: boolean;
 }
 
 export function useCarouselAnimation({
     direction,
     flow,
+    speed = 'normal',
     isInfiniteLoop,
     isPaused,
     containerRef,
     contentRef
 }: UseCarouselAnimationProps) {
     const rafRef = useRef<number>();
+    const contentSizeRef = useRef<number>(0);
+    const containerSizeRef = useRef<number>(0);
     const [state, setState] = useState<CarouselState>({
         position: 0,
-        contentSize: 0,
-        containerSize: 0,
         isReversing: false
     });
 
@@ -43,10 +45,10 @@ export function useCarouselAnimation({
             const newContentSize = content.getBoundingClientRect()[dimension];
             const newContainerSize = container.getBoundingClientRect()[dimension];
             
+            contentSizeRef.current = newContentSize;
+            containerSizeRef.current = newContainerSize;
             setState(prev => ({
                 ...prev,
-                contentSize: newContentSize,
-                containerSize: newContainerSize,
                 position: flow === 'reverse' ? -(newContentSize - newContainerSize) : 0
             }));
         };
@@ -69,7 +71,11 @@ export function useCarouselAnimation({
         let lastTimestamp = 0;
         const FRAME_RATE = 60;
         const FRAME_TIME = 1000 / FRAME_RATE;
-        const STEP = 1;
+        
+        // Obtener el valor de la variable CSS
+        const computedStyle = getComputedStyle(document.documentElement);
+        const speedValue = computedStyle.getPropertyValue(`--animation-speed-${speed}`).trim();
+        const STEP = parseFloat(speedValue) || 1; // Fallback a 1 si no se puede parsear
 
         const animate = (timestamp: number) => {
             if (isPaused) {
@@ -85,7 +91,7 @@ export function useCarouselAnimation({
             lastTimestamp = timestamp;
 
             setState(prev => {
-                const maxOffset = prev.contentSize - prev.containerSize;
+                const maxOffset = contentSizeRef.current - containerSizeRef.current;
                 
                 // Determinar la dirección base del movimiento
                 const baseStep = flow === 'normal' ? STEP : -STEP;
@@ -139,7 +145,7 @@ export function useCarouselAnimation({
                 cancelAnimationFrame(rafRef.current);
             }
         };
-    }, [direction, isPaused, isInfiniteLoop, flow]);
+    }, [isPaused, isInfiniteLoop, flow]);
 
     return state;
 }

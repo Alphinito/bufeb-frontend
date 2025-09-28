@@ -1,11 +1,13 @@
 import type { JSX } from 'preact';
 
+type AnimationSpeed = 'slow' | 'normal' | 'fast' | 'very-fast';
+
 interface CarouselStylesProps {
     direction: 'horizontal' | 'vertical';
     flow: 'normal' | 'reverse';
     position: number;
     isPaused: boolean;
-    className?: string;
+    speed?: AnimationSpeed;
 }
 
 export function getCarouselStyles(props: CarouselStylesProps): {
@@ -24,11 +26,13 @@ export function getCarouselStyles(props: CarouselStylesProps): {
         content: {
             display: 'flex',
             flexDirection: props.direction === 'horizontal' ? 'row' : 'column',
-            gap: '1rem',
+            gap: 'var(--animation-carousel-gap)',
             position: 'absolute',
             willChange: 'transform',
             transform: `${transform}(${props.flow === 'reverse' ? props.position : -props.position}px)`,
-            transition: props.isPaused ? 'none' : 'transform 100ms linear',
+            transition: props.isPaused ? 
+                'none' : 
+                `transform var(--animation-carousel-duration) var(--animation-carousel-timing)`,
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
             WebkitFontSmoothing: 'antialiased',

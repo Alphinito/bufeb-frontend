@@ -1,8 +1,12 @@
+import type { ComponentChildren } from 'preact';
+
+export type AnimationSpeed = 'slow' | 'normal' | 'fast' | 'very-fast';
+
 export interface CarouselProps {
-    children: preact.ComponentChildren;
+    children: ComponentChildren;
     direction?: 'horizontal' | 'vertical';
     flow?: 'normal' | 'reverse';
-    speed?: number; // milliseconds per movement
+    speed?: AnimationSpeed;
     isInfiniteLoop?: boolean;
     className?: string;
 }

@@ -7,7 +7,7 @@ export default function Carousel({
     children,
     direction = 'horizontal',
     flow = 'normal',
-    speed = 3000,
+    speed = 'normal',
     isInfiniteLoop = true,
     className = ''
 }: CarouselProps) {
@@ -19,9 +19,10 @@ export default function Carousel({
     const contentRef = useRef<HTMLDivElement>(null);
     const [isPaused, setIsPaused] = useState(false);
 
-    const { position, isReversing } = useCarouselAnimation({
+    const { position } = useCarouselAnimation({
         direction,
         flow,
+        speed,
         isInfiniteLoop,
         isPaused,
         containerRef,
@@ -35,8 +36,7 @@ export default function Carousel({
         direction,
         flow,
         position,
-        isPaused,
-        className
+        isPaused
     });
 
     return (
