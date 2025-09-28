@@ -1,6 +1,7 @@
 ---
 import Welcome from '../components/Welcome.astro';
 import CommonLayout from '../layouts/CommonLayout.astro';
+import SearchSection from '../components/home/SearchSection.astro';
 ---
 
 <CommonLayout title="Home">
@@ -8,10 +9,7 @@ import CommonLayout from '../layouts/CommonLayout.astro';
 		<h1>Header. this will be a component</h1>
 	</section>
 	<Fragment slot="body">
-		<section>First home page content (carousel or anything that shows the most important features)</section>
-		<section>Search section</section>
-		<section>Free services by inexperienced persons</section>
-		<Welcome /> // Example of component. Remove later
+		<SearchSection />
 	</Fragment>
 	<section slot="footer">
 		<p>Footer. this will be a component</p>
