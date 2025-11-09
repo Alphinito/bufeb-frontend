@@ -214,6 +214,7 @@ import { Carousel } from '@/components/common/carousel';
         .search-bar-container {
             position: relative;
             display: flex;
+            align-items: center;
             flex-direction: row;
             gap: var(--spacing-sm);
             .search-bar-input {
@@ -247,6 +248,20 @@ import { Carousel } from '@/components/common/carousel';
 
             .search-bar-input:focus {
                 outline: none;
+            }
+
+            .search-bar-button{
+                height: 100%;
+                border: 2px solid #ccc;
+                backdrop-filter: blur(1.5px);
+                background-color: var(--primary-color-tr);
+                padding: var(--spacing-md);
+                border-radius: var(--radius-md);
+                color: white;
+                &:hover {
+                    cursor: pointer;
+                    background-color: var(--primary-color);
+                    transition: background-color 0.5s ease-in-out;
             }
         }
     }
